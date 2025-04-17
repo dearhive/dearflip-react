@@ -1,5 +1,8 @@
 import { useEffect, useRef } from 'react';
 
+// Simple flag to track if the library has been initialized
+const initialized = { current: false };
+
 /**
  * Custom hook for initializing and managing dFlip PDF viewer
  * @param {React.RefObject} containerRef - Reference to the container element
@@ -40,6 +43,11 @@ const useDFlip = (containerRef, pdfURL, options = {}) => {
     };
 
     useEffect(() => {
+        // Skip initialization if we've already done it for this container
+        if (containerRef.current && containerRef.current.dataset.dflipInitialized === 'true') {
+            return;
+        }
+
         const initFlipbook = async () => {
             try {
                 // First load the styles
@@ -50,11 +58,16 @@ const useDFlip = (containerRef, pdfURL, options = {}) => {
                 if (!window.jQuery) {
                     await new Promise(resolve => setTimeout(resolve, 100));
                 }
-                await loadScript('/dflip/js/dflip.js');
-                await new Promise(resolve => setTimeout(resolve, 100));
+                await loadScript('/dflip/js/dflip.min.js');
+                await new Promise(resolve => setTimeout(resolve, 10));
 
                 // Initialize dFlip with the container
                 if (containerRef.current && window.jQuery) {
+                    // Check again to make sure it wasn't initialized during the async operations
+                    if (containerRef.current.dataset.dflipInitialized === 'true') {
+                        return;
+                    }
+
                     const defaultOptions = {
                         webgl: true,
                         autoEnableOutline: false,
@@ -80,6 +93,9 @@ const useDFlip = (containerRef, pdfURL, options = {}) => {
                     // Combine default options with user-provided options
                     const mergedOptions = { ...defaultOptions, ...options};
 
+                    // Mark this container as initialized to prevent duplicate initialization
+                    containerRef.current.dataset.dflipInitialized = 'true';
+
                     // Initialize dFlip
                     flipbookRef.current = window.jQuery(containerRef.current).flipBook(pdfURL, mergedOptions);
                 }
@@ -94,6 +110,11 @@ const useDFlip = (containerRef, pdfURL, options = {}) => {
         return () => {
             if (flipbookRef.current && flipbookRef.current.dispose) {
                 flipbookRef.current.dispose();
+                
+                // Reset the initialization flag when the component unmounts
+                if (containerRef.current) {
+                    containerRef.current.dataset.dflipInitialized = 'false';
+                }
             }
         };
     }, [containerRef, pdfURL, options]);

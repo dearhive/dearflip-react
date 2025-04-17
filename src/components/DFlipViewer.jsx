@@ -11,7 +11,13 @@ const DFlipViewer = ({
     // Use the custom hook
     useDFlip(containerRef, pdfURL, options);
 
-    return <div ref={containerRef}></div>;
+    return (
+        <div
+            ref={containerRef}
+            className="dflip-container"
+            data-pdf-url={pdfURL}
+        />
+    );
 };
 
 DFlipViewer.propTypes = {
