@@ -1,0 +1,28 @@
+#root {
+  max-width: 1280px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
+}
+
+.flipbook-container {
+  margin: 2rem auto;
+  max-width: 1200px;
+  padding: 1rem;
+  background-color: #f5f5f5;
+  border-radius: 8px;
+}
+
+.flipbook-container h2 {
+  text-align: center;
+  margin-bottom: 1rem;
+  color: #333;
+}
+
+/* Responsive adjustments for dFlip */
+@media (max-width: 768px) {
+  .flipbook-container {
+    padding: 0.5rem;
+  }
+}
