@@ -1,10 +1,10 @@
-# DFlip React Integration
+# DearFlip React Integration
 
-This project demonstrates how to integrate the [dFlip PDF Flipbook](https://dearflip.com/) library with React. dFlip is a powerful HTML5 flipbook library that creates beautiful, interactive 3D flipbooks to display PDFs and images.
+This project demonstrates how to integrate the [DearFlip PDF Flipbook](https://dearflip.com/) library with React. DearFlip is a powerful HTML5 flipbook library that creates beautiful, interactive 3D flipbooks to display PDFs and images.
 
 ## Overview
 
-The implementation provides a React component wrapper around the dFlip library, making it easy to embed an interactive PDF viewer in your React applications. The solution handles:
+The implementation provides a React component wrapper around the DearFlip library, making it easy to embed an interactive PDF viewer in your React applications. The solution handles:
 
 - Dynamic script and style loading
 - React component lifecycle integration
@@ -27,9 +27,9 @@ npm run dev
 
 The project is organized as follows:
 
-- `src/hooks/useDFlip.js`: Custom React hook that handles dFlip initialization
-- `src/components/DFlipViewer.jsx`: React component wrapper for the dFlip viewer
-- `public/dflip/`: Contains the dFlip library files
+- `src/hooks/useDearFlip.js`: Custom React hook that handles DearFlip initialization
+- `src/components/DearFlipViewer.jsx`: React component wrapper for the DearFlip viewer
+- `public/dearflip/`: Contains the DearFlip library files
 - `public/pdf/`: Contains sample PDF files for demonstration
 
 ## Usage
@@ -37,16 +37,16 @@ The project is organized as follows:
 ### Basic Usage
 
 ```jsx
-import DFlipViewer from './components/DFlipViewer';
+import DearFlipViewer from './components/DearFlipViewer';
 
 function App() {
   return (
     <div className="flipbook-container">
       <h2>PDF Flipbook Demo</h2>
-      <DFlipViewer 
+      <DearFlipViewer 
         pdfURL="/pdf/your-document.pdf"
         options={{
-          // dFlip options here
+          // DearFlip options here
         }}
       />
     </div>
@@ -56,14 +56,14 @@ function App() {
 
 ### Props
 
-The `DFlipViewer` component accepts the following props:
+The `DearFlipViewer` component accepts the following props:
 
 - `pdfURL` (String): Path to the PDF file (default: '/pdf/the-three-musketeers.pdf')
-- `options` (Object): Configuration options for dFlip
+- `options` (Object): Configuration options for DearFlip
 
 ### Available Options
 
-The `options` object can include any of the dFlip configuration options. Here are the most common ones:
+The `options` object can include any of the DearFlip configuration options. Here are the most common ones:
 
 ```jsx
 {
@@ -91,19 +91,19 @@ The `options` object can include any of the dFlip configuration options. Here ar
 
 ## Implementation Details
 
-### Custom Hook: useDFlip
+### Custom Hook: useDearFlip
 
-The `useDFlip` hook is responsible for:
+The `useDearFlip` hook is responsible for:
 
-1. Loading dFlip resources (CSS and JavaScript) only once
+1. Loading DearFlip resources (CSS and JavaScript) only once
 2. Initializing the flipbook with the provided options
 3. Handling cleanup when the component unmounts
 
 ```jsx
-// src/hooks/useDFlip.js
+// src/hooks/useDearFlip.js
 import { useEffect, useRef } from 'react';
 
-const useDFlip = (containerRef, pdfURL, options = {}) => {
+const useDearFlip = (containerRef, pdfURL, options = {}) => {
   const flipbookRef = useRef(null);
   
   // Implementation details...
@@ -111,34 +111,34 @@ const useDFlip = (containerRef, pdfURL, options = {}) => {
   return flipbookRef.current;
 };
 
-export default useDFlip;
+export default useDearFlip;
 ```
 
-### Component: DFlipViewer
+### Component: DearFlipViewer
 
-The `DFlipViewer` component is a thin wrapper around the custom hook:
+The `DearFlipViewer` component is a thin wrapper around the custom hook:
 
 ```jsx
-// src/components/DFlipViewer.jsx
+// src/components/DearFlipViewer.jsx
 import { useRef } from 'react';
 import PropTypes from 'prop-types';
-import useDFlip from '../hooks/useDFlip';
+import useDearFlip from '../hooks/useDearFlip';
 
-const DFlipViewer = ({
+const DearFlipViewer = ({
   pdfURL = '/pdf/the-three-musketeers.pdf',
   options = {}
 }) => {
   const containerRef = useRef(null);
   
   // Use the custom hook
-  useDFlip(containerRef, pdfURL, options);
+  useDearFlip(containerRef, pdfURL, options);
 
   return <div ref={containerRef}></div>;
 };
 
 // PropTypes definition...
 
-export default DFlipViewer;
+export default DearFlipViewer;
 ```
 
 ## Multiple Render Protection
@@ -151,22 +151,22 @@ The implementation includes safeguards to prevent issues with React's Strict Mod
 
 ## Browser Compatibility
 
-dFlip works in all modern browsers (Chrome, Firefox, Safari, Edge) and provides graceful fallbacks for environments without WebGL support.
+DearFlip works in all modern browsers (Chrome, Firefox, Safari, Edge) and provides graceful fallbacks for environments without WebGL support.
 
 ## License
 
-This integration is provided as an educational example. The dFlip library itself requires a license for commercial use. Visit [dearflip.com](https://dearflip.com/) for more information about licensing.
+This integration is provided as an educational example. The DearFlip library itself requires a license for commercial use. Visit [dearflip.com](https://dearflip.com/) for more information about licensing.
 
 ## Additional Resources
 
-- [dFlip Official Documentation](https://dearflip.com/docs)
-- [dFlip JavaScript API Reference](https://js.dearflip.com/docs)
+- [DearFlip Official Documentation](https://dearflip.com/docs)
+- [DearFlip JavaScript API Reference](https://js.dearflip.com/docs)
 
 ## Troubleshooting
 
 If you encounter issues:
 
-1. Make sure the dFlip library files are correctly placed in the public/dflip directory
+1. Make sure the DearFlip library files are correctly placed in the public/dearflip directory
 2. Check browser console for any loading errors
 3. Verify that the PDF file path is correct and accessible
 

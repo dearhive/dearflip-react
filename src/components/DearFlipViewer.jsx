@@ -1,9 +1,9 @@
 import { useRef } from 'react';
 import PropTypes from 'prop-types';
-import useDFlip from '../hooks/useDFlip';
+import useDFlip from '../hooks/useDearFlip';
 
 // Main component
-const DFlipViewer = ({
+const DearFlipViewer = ({
     pdfURL = '/pdf/the-three-musketeers.pdf',
     options = {}
 }) => {
